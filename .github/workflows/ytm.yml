@@ -22,6 +22,16 @@ jobs:
       run: |
         sudo curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp
         sudo chmod a+rx /usr/local/bin/yt-dlp
+        
+    - name: Get earthTV.m3u8
+      run: |
+        touch ./earthTV.m3u8
+        sudo cat >./earthTV.m3u8 <<EOL
+        #EXTM3U
+        #EXT-X-VERSION:3
+        #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2560000
+        $(yt-dlp --print urls https://www.youtube.com/watch?v=b-PyEswUenE)
+        EOL
 
     - name: Get TVBS55.m3u8
       run: |
